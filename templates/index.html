@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trivy and Copacetic Scan</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+</head>
+<body>
+    <h1>Tech Night Vulnerability Scan and Patching</h1>
+    
+    <!-- Image Selection -->
+    <label for="image-select">Select an image to scan:</label>
+    <select id="image-select">
+        <option value="public.ecr.aws/nginx/nginx:1.21.6">nginx:1.21.6</option>
+        <option value="docker.io/library/redis:6.2.6">redis:6.2.6</option>
+        <option value="public.ecr.aws/docker/library/httpd:2.4.48">httpd:2.4.48</option>
+
+    </select>
+
+    <button id="start-scan">Start Scan</button>
+
+  
+
+    <div id="output">
+        <h2>Status:</h2>
+        <div class="terminal-window" id="stage"></div>
+
+        <!-- New section for the initial scan output -->
+        <h2>Initial Scan Output:</h2>
+        <div class="terminal-window" id="initial-scan-output"></div>
+
+        <h2>Output:</h2>
+        <div class="terminal-window" id="output-log"></div>
+    </div>
+
+    <script>
+        const socket = io();
+    
+        document.getElementById('start-scan').addEventListener('click', function() {
+            document.getElementById('stage').textContent = 'Starting...';
+            document.getElementById('output-log').textContent = '';
+            document.getElementById('initial-scan-output').textContent = ''; // Clear initial scan output
+    
+            // **Get the selected image**
+            const imageSelect = document.getElementById('image-select');
+            const selectedImage = imageSelect.value;
+    
+            // **Emit 'start_scan' event with the selected image**
+            socket.emit('start_scan', { image: selectedImage });
+        });
+    
+        socket.on('stage_update', function(data) {
+            document.getElementById('stage').textContent = data.stage;
+            if (data.output) {
+                // Check if this is the initial scan output
+                if (data.stage === 'Trivy scan completed.') {
+                    // Replace the content of initial scan output
+                    document.getElementById('initial-scan-output').textContent = data.output;
+                } else {
+                    // Replace the content instead of appending
+                    document.getElementById('output-log').textContent = data.output;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

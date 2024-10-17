@@ -1,0 +1,138 @@
+/* Base styles */
+body {
+    font-family: 'Roboto', sans-serif; /* A clean, professional font */
+    background-color: #f4f4f9; /* Light background for a clean look */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px #aaa;
+    text-align: center; /* Keep the main title centered */
+}
+
+/* Align label and select dropdown to the left */
+label {
+    font-size: 18px;
+    color: #444;
+    margin-right: 10px;
+    text-align: left;
+    display: block;  /* Make sure the label is on its own line */
+}
+
+select {
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+    width: 100%;  /* Ensure the dropdown takes full width */
+}
+
+select:hover {
+    background-color: #f0f0f0;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Terminal-like output section */
+.terminal-window {
+    background-color: #1e1e1e;
+    color: #00ff00;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 300px;
+    max-width: 80%;
+    margin: 0 auto 20px auto;
+    border: 2px solid #333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Added shadow for a raised look */
+    text-align: left; /* Align text to the left */
+}
+
+/* Align these headings to the left */
+h2, label {
+    text-align: left;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Scrollbars */
+.terminal-window::-webkit-scrollbar {
+    width: 10px;
+}
+
+.terminal-window::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.terminal-window::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+/* Left-align status and outputs */
+#stage, #output-log, #initial-scan-output {
+    text-align: left; /* Ensure these sections are also left-aligned */
+    margin-bottom: 20px;
+    padding: 10px;
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .terminal-window {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+    select, button {
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+}
